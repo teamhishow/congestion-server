@@ -8,8 +8,6 @@ app.use(bodyParser.json());
 app.listen(8001);
 
 app.post('/', function(req, res) {
-    // リクエストボディを出力
-    console.log("ドアID: \t" + req.body.door_id);
-    console.log("混雑度: \t" + req.body.conjestion);
+    console.log("ドアID: "+ req.body.door_id + ", 混雑度: " + req.body.conjestion);
     res.send('POST is sended.');
 })
