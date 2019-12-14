@@ -32,7 +32,7 @@ app.get('/congestions', function(req, res) {
 })
 
 app.get('/', function(req, res) {
-    var gb = Math.round(255 - 255 * (655 / 1000.0));
+    var gb = Math.min(20, Math.round(255 - 255 * (655 / 1000.0)));
     console.log(gb);
     var rgb = "ff" + componentToHex(gb) + componentToHex(gb);
     console.log(rgb);
