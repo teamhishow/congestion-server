@@ -10,7 +10,7 @@ app.listen(8001);
 var congestion_tables = {};
 
 app.post('/', function(req, res) {
-    console.log("ドアID: "+ req.body.door_id + ", 混雑度: " + req.body.congestion);
+    console.log("ドアID: "+ req.body.door_id + ", 混雑度: " + req.body.congestion + ", 時刻: " + req.body.time);
     congestion_tables[req.body.door_id] = req.body.congestion;
     res.send('POST is sended.');
 })
