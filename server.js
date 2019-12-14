@@ -2,6 +2,7 @@
 const bodyParser = require('body-parser')
 const express = require('express');
 const app = express();
+const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -24,6 +25,7 @@ app.get('/congestions', function(req, res) {
 
 app.get('/', function(req, res) {
     const message = "Hello World!";
-    res.render("index", {message: message});
-
+    res.render("index", {congestions: [["ff0000", "ff4500"], ["ff6347", "ff0000"]], message: message});
 })
+
+app.use(express.static(path.join(__dirname, 'views')));

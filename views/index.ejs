@@ -2,11 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Page Title</title>
+    <link rel="stylesheet" type="text/css" href="/index.css">
+    <title>ここ混んでるで</title>
 </head>
 <body>
-    <h1>Landing page</h1>
+    <h1>ここ混んでるで</h1>
     <!-- コードから渡されたデータを表示-->
-    <p><%= message %></p>
+    <p>
+    <% var ary = congestions %>
+    <% ary.forEach(function (doors, key) { %>
+        <% doors.forEach(function (door, door_key) { %>
+            <span style="color:#<%= door %>;">■</span>
+        <% }) %>
+        &nbsp;
+    <% }); %>
+    </p>
 </body>
 </html>
