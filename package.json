@@ -1,0 +1,24 @@
+{
+  "name": "ibeacon-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "beacon.js",
+  "dependencies": {
+    "bleacon": "^0.5.1",
+    "noble-mac": "https://github.com/Timeular/noble-mac.git"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamhishow/ibeacon-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teamhishow/ibeacon-test/issues"
+  },
+  "homepage": "https://github.com/teamhishow/ibeacon-test#readme"
+}
