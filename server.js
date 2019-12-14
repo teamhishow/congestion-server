@@ -12,8 +12,7 @@ app.set("view engine", "ejs");
 app.listen(8001);
 
 let congestion_tables = {};
-
-congestion_tables = Array(10).fill().map(() => Array(4).fill(0));
+let congestion_tables_time = [];
 
 app.post('/', function(req, res) {
     console.log("車両: " + req.body.car_id +
@@ -21,7 +20,13 @@ app.post('/', function(req, res) {
         ", 混雑度: " + req.body.congestion +
         ", 時刻: " + req.body.time);
     console.log(req.body.car_id + ":" + req.body.door_id);
-    congestion_tables[Number(req.body.car_id)][Number(req.body.door_id)] = Number(req.body.congestion);
+    if(congestion_tables_time[req.body.time]) {
+        congestion_tables_time[req.body.time][Number(req.body.car_id)][Number(req.body.door_id)] = Number(req.body.congestion);
+    }else{
+        congestion_tables_time[req.body.time] = Array(10).fill().map(() => Array(4).fill(0));
+        congestion_tables_time[req.body.time][Number(req.body.car_id)][Number(req.body.door_id)] = Number(req.body.congestion);
+
+    }
     //console.log(congestion_tables);
     res.send('POST is sended.');
 })
