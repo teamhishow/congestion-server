@@ -5,6 +5,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.set("view engine", "ejs");
 app.listen(8001);
 
 var congestion_tables = {};
@@ -19,4 +20,10 @@ app.get('/congestions', function(req, res) {
     console.log("Query congestions");
     console.log(congestion_tables);
     res.send(JSON.stringify(congestion_tables));
+})
+
+app.get('/', function(req, res) {
+    const message = "Hello World!";
+    res.render("index", {message: message});
+
 })
