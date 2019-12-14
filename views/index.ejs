@@ -3,17 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="/index.css">
-    <title>ここ混んでるで</title>
+    <title>ここ混んでるでアプリ</title>
 </head>
 <body>
-    <h1>ここ混んでるで</h1>
+    <h1>ここ混んでるでアプリ</h1>
     <!-- コードから渡されたデータを表示-->
     <p>
     <% var ary = congestions %>
+
     <% ary.forEach(function (doors, key) { %>
+        <span style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
+        <%=key+1 %>
         <% doors.forEach(function (door, door_key) { %>
             <span style="color:#<%= door %>;">■</span>
         <% }) %>
+        </span>
         &nbsp;
     <% }); %>
     </p>

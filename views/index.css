@@ -1,5 +1,7 @@
 p {
     font-size:52px;
     text-align:left;
-    letter-spacing: -10px;
+    letter-spacing: -5px;
+    white-space: nowrap;
+    font-family:monospace;
 }
