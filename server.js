@@ -12,22 +12,24 @@ app.set("view engine", "ejs");
 app.listen(8001);
 
 let congestion_tables = {};
-let congestion_tables_time = [];
 
 app.post('/', function(req, res) {
-    console.log("車両: " + req.body.car_id +
+    console.log(
+        "駅: " + req.body.station,
+        "列車ID: " + req.body.train_id +
+        "車両ID: " + req.body.car_id +
         "ドアID: "+ req.body.door_id +
         ", 混雑度: " + req.body.congestion +
         ", 時刻: " + req.body.time);
-    console.log(req.body.car_id + ":" + req.body.door_id);
-    if(congestion_tables_time[req.body.time]) {
-        congestion_tables_time[req.body.time][Number(req.body.car_id)][Number(req.body.door_id)] = Number(req.body.congestion);
-    }else{
-        congestion_tables_time[req.body.time] = Array(10).fill().map(() => Array(4).fill(0));
-        congestion_tables_time[req.body.time][Number(req.body.car_id)][Number(req.body.door_id)] = Number(req.body.congestion);
-
+    if(!congestion_tables[req.body.train_id]) {
+        congestion_tables[req.body.train_id] = {
+            "station": req.body.station,
+            "congestions": Array(10).fill().map(() => Array(4).fill(0)),
+            "time": req.body.time
+        }
     }
-    //console.log(congestion_tables);
+    console.log(congestion_tables[req.body.train_id]);
+    congestion_tables[req.body.train_id].congestions[Number(req.body.car_id)][Number(req.body.door_id)] = Number(req.body.congestion);
     res.send('POST is sended.');
 })
 
@@ -37,11 +39,12 @@ app.get('/congestions', function(req, res) {
     res.send(JSON.stringify(congestion_tables));
 })
 
-app.get('/', function(req, res) {
+app.get('/trains/:train_id', function(req, res) {
+    const train = req.params['train_id'];
     //console.log(congestion_tables);
     let congestion_rgb = Array(10).fill().map(() => Array(4).fill(0));
     for(const car_congestion_index in congestion_tables) {
-        const car_congestion = congestion_tables[car_congestion_index];
+        const car_congestion = congestion_tables[train].congestions[car_congestion_index];
         for(const door_congestion_index in car_congestion) {
             const door_congestion = car_congestion[door_congestion_index];
             //console.log(door_congestion);
@@ -53,7 +56,12 @@ app.get('/', function(req, res) {
         }
     }
     console.log(congestion_rgb);
-    res.render("index", {congestions: congestion_rgb});
+    res.render("index", {
+        train_id: train,
+        congestions: congestion_rgb,
+        time: congestion_tables[train].time,
+        station: congestion_tables[train].station
+    });
 })
 
 app.use(express.static(path.join(__dirname, 'views')));
