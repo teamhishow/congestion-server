@@ -40,7 +40,7 @@ app.get('/congestions', function(req, res) {
     res.send(JSON.stringify(congestion_tables));
 })
 
-app.get('/trains/:train_id', function(req, res) {
+app.get('/tokyo/trains/:train_id', function(req, res) {
     const train = req.params['train_id'];
     let congestion_rgb = Array(10).fill().map(() => Array(4).fill(0));
     let congestion_by_train = congestion_tables[train];
