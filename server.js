@@ -28,8 +28,9 @@ app.post('/', function(req, res) {
             "time": req.body.time
         }
     }
-    console.log(congestion_tables[req.body.train_id]);
+    //console.log(congestion_tables[req.body.train_id].congestions);
     congestion_tables[req.body.train_id].congestions[Number(req.body.car_id)][Number(req.body.door_id)] = Number(req.body.congestion);
+    //console.log(congestion_tables[req.body.train_id].congestions);
     res.send('POST is sended.');
 })
 
@@ -41,15 +42,15 @@ app.get('/congestions', function(req, res) {
 
 app.get('/trains/:train_id', function(req, res) {
     const train = req.params['train_id'];
-    //console.log(congestion_tables);
     let congestion_rgb = Array(10).fill().map(() => Array(4).fill(0));
-    for(const car_congestion_index in congestion_tables) {
-        const car_congestion = congestion_tables[train].congestions[car_congestion_index];
+    let congestion_by_train = congestion_tables[train];
+    for(const car_congestion_index in congestion_by_train.congestions) {
+        const car_congestion = congestion_by_train.congestions[car_congestion_index];
         for(const door_congestion_index in car_congestion) {
             const door_congestion = car_congestion[door_congestion_index];
             //console.log(door_congestion);
             var gb = Math.min(235, Math.round(255 - 255 * (door_congestion / 1000.0)));
-            console.log(gb);
+            //console.log(gb);
             var rgb = "ff" + componentToHex(gb) + componentToHex(gb);
             //console.log(componentToHex(gb));
             congestion_rgb[car_congestion_index][door_congestion_index] = rgb;
