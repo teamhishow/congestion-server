@@ -44,6 +44,8 @@ app.get('/tokyo/trains/:train_id', function(req, res) {
     const train = req.params['train_id'];
     let congestion_rgb = Array(10).fill().map(() => Array(4).fill(0));
     let congestion_by_train = congestion_tables[train];
+    console.log(congestion_by_train);
+
     for(const car_congestion_index in congestion_by_train.congestions) {
         const car_congestion = congestion_by_train.congestions[car_congestion_index];
         for(const door_congestion_index in car_congestion) {
@@ -53,7 +55,8 @@ app.get('/tokyo/trains/:train_id', function(req, res) {
             //console.log(gb);
             var rgb = "ff" + componentToHex(gb) + componentToHex(gb);
             //console.log(componentToHex(gb));
-            congestion_rgb[car_congestion_index][door_congestion_index] = rgb;
+            congestion_rgb[car_congestion_index - 1][door_congestion_index - 1] = rgb;
+            console.log(congestion_rgb);
         }
     }
     console.log(congestion_rgb);
