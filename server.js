@@ -55,7 +55,7 @@ app.get('/tokyo/trains/:train_id', function(req, res) {
             //console.log(gb);
             var rgb = "ff" + componentToHex(gb) + componentToHex(gb);
             //console.log(componentToHex(gb));
-            congestion_rgb[car_congestion_index - 1][door_congestion_index - 1] = rgb;
+            congestion_rgb[car_congestion_index][door_congestion_index] = rgb;
             console.log(congestion_rgb);
         }
     }
